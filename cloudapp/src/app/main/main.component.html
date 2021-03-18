@@ -1,0 +1,20 @@
+<div *ngIf="entities$ | async as entities">
+  <div class="eca-actions">
+    <button mat-flat-button color="primary" (click)="update(ids)"
+     
+      >Delete
+    </button>
+  </div>
+  <p>A total of <strong>{{ ids.size }}</strong> items have been selected.</p>
+  <div >
+    <p>Select the desired items:</p>
+    <app-select-entities #selectEntities 
+      (entitySelected)="onEntitySelected($event)"
+      [entityList]="entities"
+      [selectedEntities]="ids">
+    </app-select-entities>
+  </div>
+  <ng-template #noEntities>
+    Please navigate to a list.
+  </ng-template>
+</div>
