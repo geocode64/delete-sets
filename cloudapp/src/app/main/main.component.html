@@ -1,7 +1,6 @@
-<div *ngIf="entities$ | async as entities">
+<!-- <div *ngIf="entities$ | async as entities; else loading">
   <div class="eca-actions">
-    <button mat-flat-button color="primary" (click)="update(ids)"
-     
+    <button mat-flat-button color="primary" (click)="update()"
       >Delete
     </button>
   </div>
@@ -18,3 +17,6 @@
     Please navigate to a list.
   </ng-template>
 </div>
+<div class="loading-shade" *ngIf="loading">
+  <mat-spinner diameter="50"></mat-spinner>
+</div> -->

@@ -13,19 +13,31 @@ import { MatRadioChange } from '@angular/material/radio';
 export class MainComponent implements OnInit, OnDestroy {
 
   loading = false;
-  selectedEntity: Entity;
+  selectedEntities: Entity[];
   apiResult: any;
   ids = new Set<string>();
+  users: Entity[];
 
   entities$: Observable<Entity[]> = this.eventsService.entities$
   .pipe(
-    map(entities => {
-      console.log(entities);
-      return entities.filter(e=>e.type==EntityType.SET);
-    }
-    )
-  )
-  .pipe(tap(() => this.clear()))
+    switchMap(entities => {      
+      const items = entities.filter(e=>e.type==EntityType.SET);
+      return iif(
+        ()=>items.length>0,
+        forkJoin(items.map(e=> {
+          return  this.restService.call<any>(e.link);
+          }
+          )),
+        of(null)
+      )
+    })
+  );
+
+
+      
+      
+      //entities.filter(e=>e.type==EntityType.SET)
+
 
   constructor(
     private restService: CloudAppRestService,
@@ -55,13 +67,38 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
-  clear() {
-    this.apiResult = null;
-    this.selectedEntity = null;
-  }
+  update() {
+    console.log(this.ids);
 
-  update(value: any) {
-    console.log(value);
+    if(confirm("Are you sure to delete "+this.ids.size+" sets")) {
+      this.loading = true;
+      this.ids.forEach(id => {
+        
+        let request: Request = {
+          url: '/conf/sets/'+id, 
+          method: HttpMethod.DELETE
+        };
+        this.restService.call(request)
+        .pipe(finalize(()=>this.loading=false))
+        .subscribe({
+          next: result => {
+            this.apiResult = result;
+            this.eventsService.refreshPage().subscribe(
+              ()=>this.alert.success('Success!')
+            );
+          },
+          error: (e: RestErrorResponse) => {
+            this.alert.error('Failed to delete data: ' + e.message);
+            console.error(e);
+          }
+        }); 
+
+
+        
+      });
+         
+
+    }
     // const requestBody = this.tryParseJson(value)
     // if (!requestBody) return this.alert.error('Failed to parse json');
 
