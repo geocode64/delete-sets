@@ -17,6 +17,7 @@ export class MainComponent implements OnInit, OnDestroy {
   apiResult: any;
   ids = new Set<string>();
   users: Entity[];
+  currentUserId: any;
 
   entities$: Observable<Entity[]> = this.eventsService.entities$
   .pipe(
@@ -24,19 +25,37 @@ export class MainComponent implements OnInit, OnDestroy {
       const items = entities.filter(e=>e.type==EntityType.SET);
       return iif(
         ()=>items.length>0,
-        forkJoin(items.map(e=> {
-          return  this.restService.call<any>(e.link);
-          }
-          )),
+        forkJoin(items.map(e=>this.restService.call<any>(e.link))),
         of(null)
       )
     })
-  );
+  )
 
+  sets$: Observable<Entity[]> = this.entities$
+  .pipe(
+    map(entities => {
+            if(!entities) return [];
+            let currentUserId = this.currentUserId; // TODO this is asynchroonously loaded so it may not be set...
+            const userSets = entities.filter((e: any)=>e.created_by.value==currentUserId);
+            return userSets;            
+          }
+    )
+  )
+  // .pipe(
+  //   switchMap((entities : Entity[])=> {
+  //       console.log('entitites', entities);
+  //       let currentUserId = this.currentUserId; // TODO this is asynchroonously loaded so it may not be set...
+  //       const userSets = entities.filter((e: any)=>e.created_by.value==currentUserId);
+  //       console.log('userSets', userSets);
+  //       return iif(
+  //         ()=>userSets.length>0,
+  //         forkJoin(userSets),
+  //         of(null)
+  //       )
+  //     }
+  //     )
+  // )
 
-      
-      
-      //entities.filter(e=>e.type==EntityType.SET)
 
 
   constructor(
@@ -46,6 +65,13 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.eventsService.getInitData().subscribe(
+      data => {
+        this.currentUserId = data.user.primaryId;
+        console.log('Page called by', data);
+      }      
+    );
+
   }
 
   ngOnDestroy(): void {

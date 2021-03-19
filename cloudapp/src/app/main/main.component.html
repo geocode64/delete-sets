@@ -1,4 +1,4 @@
-<!-- <div *ngIf="entities$ | async as entities; else loading">
+<div *ngIf="sets$ | async as sets; else loading">
   <div class="eca-actions">
     <button mat-flat-button color="primary" (click)="update()"
       >Delete
@@ -9,7 +9,7 @@
     <p>Select the desired items:</p>
     <app-select-entities #selectEntities 
       (entitySelected)="onEntitySelected($event)"
-      [entityList]="entities"
+      [entityList]="sets"
       [selectedEntities]="ids">
     </app-select-entities>
   </div>
@@ -19,4 +19,4 @@
 </div>
 <div class="loading-shade" *ngIf="loading">
   <mat-spinner diameter="50"></mat-spinner>
-</div> -->
+</div>
