@@ -83,7 +83,7 @@ export class MainComponent implements OnInit, OnDestroy {
   update() {
     console.log(this.ids);
 
-    if(confirm("Are you sure to delete "+this.ids.size+" sets")) {
+    if(confirm("Are you sure you want to delete "+this.ids.size+" set(s)")) {
       this.loading = true;
       this.ids.forEach(id => {
         
