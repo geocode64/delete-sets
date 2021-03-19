@@ -35,26 +35,13 @@ export class MainComponent implements OnInit, OnDestroy {
   .pipe(
     map(entities => {
             if(!entities) return [];
-            let currentUserId = this.currentUserId; // TODO this is asynchroonously loaded so it may not be set...
+            let currentUserId = this.currentUserId; // TODO this is asynchroonously loaded so is possible it isn't set yet
             const userSets = entities.filter((e: any)=>e.created_by.value==currentUserId);
+            console.log(userSets);
             return userSets;            
           }
     )
   )
-  // .pipe(
-  //   switchMap((entities : Entity[])=> {
-  //       console.log('entitites', entities);
-  //       let currentUserId = this.currentUserId; // TODO this is asynchroonously loaded so it may not be set...
-  //       const userSets = entities.filter((e: any)=>e.created_by.value==currentUserId);
-  //       console.log('userSets', userSets);
-  //       return iif(
-  //         ()=>userSets.length>0,
-  //         forkJoin(userSets),
-  //         of(null)
-  //       )
-  //     }
-  //     )
-  // )
 
 
 

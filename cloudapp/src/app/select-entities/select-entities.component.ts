@@ -55,7 +55,7 @@ export class SelectItem {
 
   constructor(item: Partial<SelectItem>, checker: (id: string) => boolean) {
     Object.assign(this, item);
-    this.name = (this.description || this.code) || this.id;
+    this.name = (this.name || this.description || this.code) || this.id;
     this.checked = checker(item.id);
   }
 }
