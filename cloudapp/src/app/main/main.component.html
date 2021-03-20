@@ -1,22 +1,39 @@
-<div *ngIf="sets$ | async as sets; else loading">
-  <div class="eca-actions">
-    <button mat-flat-button color="primary" (click)="update()"
-      >Delete
-    </button>
+<ng-container
+  *ngIf="sets.length>0; then containssets; else nosets">
+</ng-container>
+
+<ng-template #nosets>
+  <div>
+    Please navigate to an Alma page with Sets
   </div>
-  <p>A total of <strong>{{ ids.size }}</strong> items have been selected.</p>
-  <div >
-    <p>Select the desired items:</p>
-    <app-select-entities #selectEntities 
-      (entitySelected)="onEntitySelected($event)"
-      [entityList]="sets"
-      [selectedEntities]="ids">
-    </app-select-entities>
+</ng-template>
+
+
+
+  <div *ngIf="sets.length>0">
+    <div class="eca-actions">
+      <button mat-flat-button color="primary" (click)="delete()"
+        >Delete
+      </button>
+    </div>
+    <p>A total of <strong>{{ ids.size }}</strong> items have been selected.</p>
+    <div >
+      <p>Select the desired items:</p>
+      <app-select-entities #selectEntities 
+        (entitySelected)="onEntitySelected($event)"
+        [entityList]="sets"
+        [selectedEntities]="ids">
+      </app-select-entities>
+    </div>
   </div>
-  <ng-template #noEntities>
-    Please navigate to a list.
-  </ng-template>
-</div>
+
+
 <div class="loading-shade" *ngIf="loading">
-  <mat-spinner diameter="50"></mat-spinner>
+  <mat-progress-spinner 
+    [mode]="showProgress ? 'determinate' : 'indeterminate'"
+    diameter="50"
+    [value]="percentComplete"
+    >
+  </mat-progress-spinner>
 </div>
+

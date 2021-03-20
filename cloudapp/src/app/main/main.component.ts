@@ -1,67 +1,115 @@
-import { forkJoin, iif, Observable, of  } from 'rxjs';
-import { finalize, map, switchMap, tap } from 'rxjs/operators';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CloudAppRestService, CloudAppEventsService, Request, HttpMethod, 
-  Entity, RestErrorResponse, AlertService, EntityType } from '@exlibris/exl-cloudapp-angular-lib';
-import { MatRadioChange } from '@angular/material/radio';
+import { Component, OnInit } from '@angular/core';
+import { CloudAppEventsService, CloudAppRestService, Entity, EntityType, PageInfo, RestErrorResponse } from '@exlibris/exl-cloudapp-angular-lib';
+import { map, catchError, switchMap, tap, mergeMap } from 'rxjs/operators';
+import { of, forkJoin, Observable, Subscription, iif } from 'rxjs';
+import { AppService } from '../app.service';
+
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit {
 
-  loading = false;
-  selectedEntities: Entity[];
-  apiResult: any;
+  num = 10;
+  loading = true;
+  processed = 0;
+  showProgress = false;
+  currentUserId;
   ids = new Set<string>();
-  users: Entity[];
-  currentUserId: any;
+  
+  sets: Entity[];
+  private pageLoad$: Subscription;
+  
 
-  entities$: Observable<Entity[]> = this.eventsService.entities$
-  .pipe(
-    switchMap(entities => {      
-      const items = entities.filter(e=>e.type==EntityType.SET);
-      return iif(
-        ()=>items.length>0,
-        forkJoin(items.map(e=>this.restService.call<any>(e.link))),
-        of(null)
-      )
-    })
-  )
-
-  sets$: Observable<Entity[]> = this.entities$
-  .pipe(
-    map(entities => {
-            if(!entities) return [];
-            let currentUserId = this.currentUserId; // TODO this is asynchroonously loaded so is possible it isn't set yet
-            const userSets = entities.filter((e: any)=>e.created_by.value==currentUserId);
-            console.log(userSets);
-            return userSets;            
-          }
-    )
-  )
-
-
-
-  constructor(
+  constructor( 
     private restService: CloudAppRestService,
-    private eventsService: CloudAppEventsService,
-    private alert: AlertService 
+    private eventsService: CloudAppEventsService
   ) { }
 
   ngOnInit() {
-    this.eventsService.getInitData().subscribe(
-      data => {
-        this.currentUserId = data.user.primaryId;
-        console.log('Page called by', data);
-      }      
-    );
-
+    this.loading=true;
+    //this.appService.setTitle('Parallel Requests');
+    this.pageLoad$ = this.eventsService.onPageLoad(this.onPageLoad);
+    
+    
   }
 
   ngOnDestroy(): void {
+    this.pageLoad$.unsubscribe();
+  }
+  onPageLoad = (pageInfo: PageInfo) => {    
+    this.sets = [];
+    this.loadSets(pageInfo.entities);
+  }
+
+  delete() {
+    if(confirm("Are you sure you want to delete "+this.ids.size+" set(s)")) {
+      
+      //TODO parallell delete code here
+
+    }
+
+  }
+
+  loadSets(sets: Entity[]) {
+    this.loading=true;
+    this.processed = 0;
+
+    const sets$ = of(sets)
+    .pipe(
+      switchMap(entities => {  
+        this.loading=true;    
+        const items = entities.filter(e=>e.type==EntityType.SET);
+        return iif(
+          ()=>items.length>0,
+          forkJoin(items.map(e=>this.getSet(e))),
+          of(null)
+        )
+      }),
+    )
+
+    this.eventsService.getInitData()
+    .pipe(
+      mergeMap(initData => {
+        const currentUserId = initData.user.primaryId;
+        return sets$
+        .pipe(
+          map(entities => {
+            if(!entities) return [];
+            return entities.filter((e: any)=>e.created_by.value==currentUserId);  
+          }
+          )
+        )                            
+      }),
+    )
+    .subscribe({
+      next: (s: any[])=>{
+        if(!s) return null;
+        s.forEach(set=>{
+          if (isRestErrorResponse(set)) {
+            console.log('Error retrieving user: ' + set.message)
+          } else {
+            this.sets.push(set);
+          }
+        })
+      },
+      complete: () => this.loading=false
+    });
+
+  }
+
+  getSet(set: Entity) {
+    return this.restService.call<any>(set.link).pipe(
+      tap(()=>this.processed++),
+      catchError(e => of(e)),
+    )
+  }
+
+
+  get percentComplete() {
+    return Math.round((this.processed/this.num)*100)
   }
 
   onEntitySelected(event) {
@@ -69,80 +117,6 @@ export class MainComponent implements OnInit, OnDestroy {
     else this.ids.delete(event.mmsId);
   }
 
-  entitySelected(event: MatRadioChange) {
-    const value = event.value as Entity;
-    this.loading = true;
-    this.restService.call<any>(value.link)
-    .pipe(finalize(()=>this.loading=false))
-    .subscribe(
-      result => this.apiResult = result,
-      error => this.alert.error('Failed to retrieve entity: ' + error.message)
-    );
-  }
-
-  update() {
-    console.log(this.ids);
-
-    if(confirm("Are you sure you want to delete "+this.ids.size+" set(s)")) {
-      this.loading = true;
-      this.ids.forEach(id => {
-        
-        let request: Request = {
-          url: '/conf/sets/'+id, 
-          method: HttpMethod.DELETE
-        };
-        this.restService.call(request)
-        .pipe(finalize(()=>this.loading=false))
-        .subscribe({
-          next: result => {
-            this.apiResult = result;
-            this.eventsService.refreshPage().subscribe(
-              ()=>this.alert.success('Success!')
-            );
-          },
-          error: (e: RestErrorResponse) => {
-            this.alert.error('Failed to delete data: ' + e.message);
-            console.error(e);
-          }
-        }); 
-
-
-        
-      });
-         
-
-    }
-    // const requestBody = this.tryParseJson(value)
-    // if (!requestBody) return this.alert.error('Failed to parse json');
-
-    // this.loading = true;
-    // let request: Request = {
-    //   url: this.selectedEntity.link, 
-    //   method: HttpMethod.PUT,
-    //   requestBody
-    // };
-    // this.restService.call(request)
-    // .pipe(finalize(()=>this.loading=false))
-    // .subscribe({
-    //   next: result => {
-    //     this.apiResult = result;
-    //     this.eventsService.refreshPage().subscribe(
-    //       ()=>this.alert.success('Success!')
-    //     );
-    //   },
-    //   error: (e: RestErrorResponse) => {
-    //     this.alert.error('Failed to update data: ' + e.message);
-    //     console.error(e);
-    //   }
-    // });    
-  }
-
-  private tryParseJson(value: any) {
-    try {
-      return JSON.parse(value);
-    } catch (e) {
-      console.error(e);
-    }
-    return undefined;
-  }
+  
 }
+const isRestErrorResponse = (object: any): object is RestErrorResponse => 'error' in object;
