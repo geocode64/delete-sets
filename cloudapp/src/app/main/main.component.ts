@@ -85,6 +85,7 @@ export class MainComponent implements OnInit {
       },
       complete: () => {
         this.loading=false;
+        this.ids = new Set<string>();
         this.eventsService.refreshPage().subscribe(
           ()=>this.alert.success('Set deletion succesful!', {autoClose: false})
         );
