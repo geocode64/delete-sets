@@ -47,7 +47,26 @@ export class MainComponent implements OnInit {
   }
 
   delete() {
-    if(confirm("Are you sure you want to delete "+this.ids.size+" set(s)")) {
+
+    let idsArray = Array.from(this.ids);
+    let setsArrary : any = [...this.sets];
+    let confirmationMessage = "Are you sure you want to delete "+idsArray.length+" set(s)? ";
+
+    // filter public sets
+    const selectedPublic = setsArrary
+          .filter(set => idsArray.findIndex(id=>id == set.id) > -1)
+          .filter(set => set.private.value == 'false')
+
+    if(selectedPublic.length>0) {
+      let renderSets = '';
+      selectedPublic.forEach(set => {
+        renderSets += ' - '+set.name+'\n';
+      });
+      confirmationMessage += "This includes the following public sets that may be being used by others:\n"
+       +renderSets;
+    }
+
+    if(confirm(confirmationMessage)) {
       
       //TODO parallell delete code here
       this.deleteSets();
@@ -58,7 +77,6 @@ export class MainComponent implements OnInit {
   deleteSets() {
     this.loading = true;
     this.processed = 0;
-
     let idsArray = Array.from(this.ids);
 
     of(idsArray)
@@ -95,7 +113,6 @@ export class MainComponent implements OnInit {
   }
 
   deleteSet(setid: string) {
-
     let request: Request = {
       url: '/conf/sets/'+setid, 
       method: HttpMethod.DELETE
@@ -167,6 +184,7 @@ export class MainComponent implements OnInit {
   }
 
   onEntitySelected(event) {
+    console.log(event);
     if (event.checked) this.ids.add(event.mmsId);
     else this.ids.delete(event.mmsId);
   }
