@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>Delete Sets</h2>
+<mat-dialog-content>
+  <p>Are you sure you want to delete {{ deleteCount }} set(s)?</p>
+  <p *ngIf="includesPublic.length>0">This includes the following public sets that may be being used by others:</p>
+  <ul *ngIf="includesPublic.length>0"> 
+    <li *ngFor="let set of includesPublic">
+      {{ set.name }}
+    </li>
+  </ul>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="secondary" mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="secondary" [mat-dialog-close]="true" cdkFocusInitial>Yes, delete sets</button>
+</mat-dialog-actions>

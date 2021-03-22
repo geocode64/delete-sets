@@ -10,12 +10,17 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './main/main.component';
 import { SelectEntitiesComponent } from './select-entities/select-entities.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
-    SelectEntitiesComponent
+    SelectEntitiesComponent,
+    ConfirmationDialogComponent
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent,
   ],
   imports: [
     MaterialModule,

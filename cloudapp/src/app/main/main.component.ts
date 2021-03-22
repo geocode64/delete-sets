@@ -3,7 +3,8 @@ import { CloudAppEventsService, CloudAppRestService, Entity, EntityType,
   HttpMethod, PageInfo, RestErrorResponse, Request, AlertService } from '@exlibris/exl-cloudapp-angular-lib';
 import { map, catchError, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { of, forkJoin, Observable, Subscription, iif } from 'rxjs';
-import { AppService } from '../app.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class MainComponent implements OnInit {
   constructor( 
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
-    private alert: AlertService 
+    private alert: AlertService ,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -42,35 +44,28 @@ export class MainComponent implements OnInit {
     this.pageLoad$.unsubscribe();
   }
   onPageLoad = (pageInfo: PageInfo) => {    
+    this.ids = new Set<string>();
     this.sets = [];
     this.loadSets(pageInfo.entities);
   }
 
   delete() {
-
     let idsArray = Array.from(this.ids);
     let setsArrary : any = [...this.sets];
-    let confirmationMessage = "Are you sure you want to delete "+idsArray.length+" set(s)? ";
 
     // filter public sets
-    const selectedPublic = setsArrary
+    const includesPublic = setsArrary
           .filter(set => idsArray.findIndex(id=>id == set.id) > -1)
           .filter(set => set.private.value == 'false')
 
-    if(selectedPublic.length>0) {
-      let renderSets = '';
-      selectedPublic.forEach(set => {
-        renderSets += ' - '+set.name+'\n';
-      });
-      confirmationMessage += "This includes the following public sets that may be being used by others:\n"
-       +renderSets;
-    }
-
-    if(confirm(confirmationMessage)) {
-      
-      //TODO parallell delete code here
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, { autoFocus: false });
+    dialogRef.componentInstance.deleteCount= idsArray.length;
+    dialogRef.componentInstance.includesPublic= includesPublic;
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+      console.log(result);
       this.deleteSets();
-    }
+    });
 
   }
 
@@ -189,6 +184,5 @@ export class MainComponent implements OnInit {
     else this.ids.delete(event.mmsId);
   }
 
-  
 }
 const isRestErrorResponse = (object: any): object is RestErrorResponse => 'error' in object;

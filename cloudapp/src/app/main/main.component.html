@@ -15,6 +15,7 @@
   <div *ngIf="sets.length>0">
     <div class="eca-actions">
       <button mat-flat-button color="primary" (click)="delete()"
+      [disabled] = "!ids.length>1"
         >Delete
       </button>
     </div>
@@ -38,4 +39,3 @@
     >
   </mat-progress-spinner>
 </div>
-
