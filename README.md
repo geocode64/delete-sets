@@ -1,11 +1,12 @@
-**Delete Your Sets**
+<h1>Delete Your Sets</h1>
 
 Tidy up your list of Alma sets quickly with this bulk deletion tool.
 
 Select multiple sets from the **Admin** > **Manage Sets** > **My Sets** page within Alma for simultaneous removal (you may only select sets that were created by the Alma account you are logged in with).
 
 
-**License**
+<h2>License</h2>
+
 *Copyright 2021*
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
