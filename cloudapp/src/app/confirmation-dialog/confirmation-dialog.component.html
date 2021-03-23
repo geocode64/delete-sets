@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Delete Sets</h2>
+<h2 mat-dialog-title>{{ 'Translate.ConfirmTitle' | translate }}</h2>
 <mat-dialog-content>
   <p>Are you sure you want to delete {{ deleteCount }} set(s)?</p>
   <p *ngIf="includesPublic.length>0">This includes the following public sets that may be being used by others:</p>
