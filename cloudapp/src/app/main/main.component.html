@@ -5,8 +5,8 @@
 <ng-template #nosets>
   <div>
     This app enhances the existing Manage Sets admin page in Alma, 
-    allowing users to bulk delete Sets they have created. 
-    Navigate to Admin > Manage Sets (insert link here) to use this app.
+    allowing you to bulk delete Sets you have created. 
+    Navigate to <b>Admin > Manage Sets > My Sets</b> to use this app.
   </div>
 </ng-template>
 
@@ -18,10 +18,10 @@
       [disabled]="!ids.size"
         >Delete
       </button>
-    </div>
-    <p>A total of <strong>{{ ids.size }}</strong> items have been selected.</p>
+    </div>   
     <div >
-      <p>Select the desired items:</p>
+      <p>Select the sets you want to delete from the list below.</p>
+      <p><i>A total of <strong>{{ ids.size }}</strong> items have been selected.</i></p>
       <app-select-entities #selectEntities 
         (entitySelected)="onEntitySelected($event)"
         [entityList]="sets"
