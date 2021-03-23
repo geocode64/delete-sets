@@ -14,7 +14,7 @@
 </ng-template>
 
 
-
+<ng-template #containssets>
   <div *ngIf="sets.length>0">
     <div class="eca-actions">
       <button mat-flat-button color="primary" (click)="delete()"
@@ -32,7 +32,7 @@
       </app-select-entities>
     </div>
   </div>
-
+</ng-template>
 
 <div class="loading-shade" *ngIf="loading">
   <mat-progress-spinner 
