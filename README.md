@@ -25,7 +25,7 @@ Members:
 * Patricia
 * Xiaobo
 
-<h1>LicenseP</h1>
+<h1>License</h1>
 
 <h2>Copyright 2021</h2>
 
