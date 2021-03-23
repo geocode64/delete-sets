@@ -1,13 +1,33 @@
-<h1>Delete Your Sets</h1>
+<h1>DELETE YOUR SETS</h1>
 
-Tidy up your list of Alma sets quickly with this bulk deletion tool.
+*Tidy up your list of Alma sets quickly with this bulk deletion tool.*
+
+This Cloud App was developed as part of the ANZREG Cloud Apps Hackathon 2021. It was created to address the following problem which was raised in the Alma Idea Exchange:
+
+> Often we work on a set of records and then the set is no longer
+> needed and/or is empty. We have accumulated many of these and
+> would like the ability to select multiple sets and delete these. This
+> should be limited to sets the user owns - not other user's sets.
+> (see [Idea Exchange] (https://ideas.exlibrisgroup.com/forums/308173-alma/suggestions/33505454-add-the-ability-to-delete-multiple-sets-from-the)
+
+<h2>How It Works</h2>
 
 Select multiple sets from the **Admin** > **Manage Sets** > **My Sets** page within Alma for simultaneous removal (you may only select sets that were created by the Alma account you are logged in with).
 
+<h1>TEAM</h1>
 
-<h2>License</h2>
+*Team Name:* Let's Talk About Sets
 
-*Copyright 2021*
+Members:
+* Andrew
+* George 
+* Jessie
+* Patricia
+* Xiaobo
+
+<h1>LicenseP</h1>
+
+<h2>Copyright 2021</h2>
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
