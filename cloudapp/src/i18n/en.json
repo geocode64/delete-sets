@@ -1,9 +1,8 @@
 {
-  "Translate": {
-    "Button": "Delete",
-    "Title": "Delete Your Sets",
-    "Select": "Select the sets you want to delete from the list below.",
-    "DeleteSuc": "Set deletion succesful!",
-    "ConfirmTitle": "Delete Sets"
-  }
+	"Translate": {
+		"Button": "Delete",
+		"ConfirmTitle": "Delete Sets",
+		"DeleteSuc": "Set deletion succesful!",
+		"Select": "Select the sets you want to delete from the list below."
+	}
 }

@@ -1,9 +1,8 @@
 {
-  "Translate": {
-    "Button": "删除",
-    "Title": "删除属于自己的合集",
-    "Select": "从列表中选择要删除的合集",
-    "DeleteSuc": "合集已被删除",
-    "ConfirmTitle": "删除合集"
-  }
+	"Translate": {
+		"Button": "删除",
+		"ConfirmTitle": "删除合集",
+		"DeleteSuc": "合集已被删除",
+		"Select": "从列表中选择要删除的合集"
+	}
 }
