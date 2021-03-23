@@ -16,16 +16,20 @@ Select multiple sets from the **Admin** > **Manage Sets** > **My Sets** page wit
 
 ![MySets](https://user-images.githubusercontent.com/80810015/112097689-6b589c00-8bdb-11eb-9ec5-27edbfcee20b.png)
 
+If you have a large number of sets, use the Content Type filter and the Results per page option on the Manage Sets page to refine the sets to those you want to work with.
+
+![FilterMySets](https://user-images.githubusercontent.com/41173288/112232624-9f3bcc00-8c84-11eb-94a4-87d02a761077.png)
+
 <h2>TEAM</h2>
 
 *Team Name:* Let's Talk About Sets
 
 Members:
-* Andrew
-* George 
-* Jessie
-* Patricia
-* Xiaobo
+* Andrew Press (Charles Sturt University)
+* George Heydon (University of Technology Sydney)
+* Jessie Donaghey (Bond University)
+* Patricia Farnan (University of Notre Dame Australia)
+* Xiaobo Ni (University of New South Wales)
 
 <h2>License</h2>
 
