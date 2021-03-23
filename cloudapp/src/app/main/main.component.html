@@ -2,7 +2,7 @@
   <p><a (click)="setLang('en')">English</a> | <a (click)="setLang('cn')">中文</a></p>
 </div>
 <ng-container
-  *ngIf="sets.length>0; else nosets">
+  *ngIf="sets.length>0; then containssets; else nosets">
 </ng-container>
 
 <ng-template #nosets>
