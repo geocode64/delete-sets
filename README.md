@@ -8,7 +8,7 @@ This Cloud App was developed as part of the ANZREG Cloud Apps Hackathon 2021. It
 > needed and/or is empty. We have accumulated many of these and
 > would like the ability to select multiple sets and delete these. This
 > should be limited to sets the user owns - not other user's sets.
-> (see [Idea Exchange] (https://ideas.exlibrisgroup.com/forums/308173-alma/suggestions/33505454-add-the-ability-to-delete-multiple-sets-from-the)
+> (see [Idea Exchange](https://ideas.exlibrisgroup.com/forums/308173-alma/suggestions/33505454-add-the-ability-to-delete-multiple-sets-from-the)
 
 <h2>How It Works</h2>
 
