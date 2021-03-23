@@ -1,3 +1,6 @@
+<div id="footer">
+  <p><a (click)="setLang('en')">English</a> | <a (click)="setLang('cn')">中文</a></p>
+</div>
 <ng-container
   *ngIf="sets.length>0; then containssets; else nosets">
 </ng-container>
@@ -15,13 +18,13 @@
   <div *ngIf="sets.length>0">
     <div class="eca-actions">
       <button mat-flat-button color="primary" (click)="delete()"
-      [disabled]="!ids.size"
-        >Delete
+      [disabled]="!ids.size">
+      {{ 'Translate.Button' | translate }}
       </button>
     </div>   
     <div >
-      <p>Select the sets you want to delete from the list below.</p>
-      <p><i>A total of <strong>{{ ids.size }}</strong> items have been selected.</i></p>
+      <p >{{ 'Translate.Select' | translate }}</p>
+      <p ><i>A total of <strong>{{ ids.size }}</strong> items have been selected.</i></p>
       <app-select-entities #selectEntities 
         (entitySelected)="onEntitySelected($event)"
         [entityList]="sets"

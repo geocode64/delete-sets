@@ -5,7 +5,8 @@ import { map, catchError, switchMap, tap, mergeMap } from 'rxjs/operators';
 import { of, forkJoin, Observable, Subscription, iif } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-
+import { TranslateService } from '@ngx-translate/core';
+//import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-main',
@@ -29,14 +30,16 @@ export class MainComponent implements OnInit {
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService ,
+    private translate: TranslateService,
+    //private appService: AppService,
     private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
+    //this.translate.get('Translate.Title').subscribe(text=>this.appService.setTitle(text));
     this.loading=true;
     //this.appService.setTitle('Parallel Requests');
     this.pageLoad$ = this.eventsService.onPageLoad(this.onPageLoad);
-    
     
   }
 
@@ -100,7 +103,7 @@ export class MainComponent implements OnInit {
         this.loading=false;
         this.ids = new Set<string>();
         this.eventsService.refreshPage().subscribe(
-          ()=>this.alert.success('Set deletion succesful!', {autoClose: false})
+          ()=>this.alert.success(this.translate.instant('Translate.DeleteSuc'), {autoClose: false})
         );
       }
     });
@@ -184,5 +187,10 @@ export class MainComponent implements OnInit {
     else this.ids.delete(event.mmsId);
   }
 
+  setLang(lang: string) {
+    this.translate.use(lang);
+  }
+
 }
 const isRestErrorResponse = (object: any): object is RestErrorResponse => 'error' in object;
+
