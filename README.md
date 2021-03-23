@@ -14,7 +14,7 @@ This Cloud App was developed as part of the ANZREG Cloud Apps Hackathon 2021. It
 
 Select multiple sets from the **Admin** > **Manage Sets** > **My Sets** page within Alma for simultaneous removal (you may only select sets that were created by the Alma account you are logged in with).
 
-<h1>TEAM</h1>
+<h2>TEAM</h2>
 
 *Team Name:* Let's Talk About Sets
 
@@ -25,9 +25,9 @@ Members:
 * Patricia
 * Xiaobo
 
-<h1>License</h1>
+<h2>License</h2>
 
-<h2>Copyright 2021</h2>
+<h3>Copyright 2021</h3>
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
