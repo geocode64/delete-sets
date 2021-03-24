@@ -1,5 +1,5 @@
 <div id="footer">
-  <p><a (click)="setLang('en')">English</a> | <a (click)="setLang('cn')">中文</a></p>
+  <p><a [routerLink]="" (click)="setLang('en')">English</a> | <a [routerLink]="" (click)="setLang('cn')">中文</a></p>
 </div>
 <ng-container
   *ngIf="sets.length>0; then containssets; else nosets">
