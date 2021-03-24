@@ -61,12 +61,12 @@ export class MainComponent implements OnInit {
           .filter(set => idsArray.findIndex(id=>id == set.id) > -1)
           .filter(set => set.private.value == 'false')
 
+    // setup confirmation popup
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, { autoFocus: false });
     dialogRef.componentInstance.deleteCount= idsArray.length;
     dialogRef.componentInstance.includesPublic= includesPublic;
     dialogRef.afterClosed().subscribe(result => {
       if (!result) return;
-      console.log(result);
       this.deleteSets();
     });
 
