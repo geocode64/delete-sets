@@ -3,6 +3,12 @@
 		"Button": "删除",
 		"ConfirmTitle": "删除合集",
 		"DeleteSuc": "合集已被删除",
-		"Select": "从列表中选择要删除的合集"
+		"NoSets": "本应用增强了Alma合集管理页面的功能，容许同时删除多个属于自己的合集。Navigate to <b>Admin > Manage Sets > My Sets</b> to use this app.",
+		"NumSets": "<i>总共<strong>{{ num }}</strong>个合集被选中</i>",
+		"Select": "从列表中选择要删除的合集",
+		"ConfirmDelCount": "确定删除{{ delNum }}个合集?",
+		"ConfirmPublic": "选中的合集中包括其他人可以使用的公共合集:",
+		"ConfirmCancel": "取消",
+		"ConfirmYes": "确认删除"
 	}
 }

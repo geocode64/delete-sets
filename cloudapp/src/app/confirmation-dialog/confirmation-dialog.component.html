@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{ 'Translate.ConfirmTitle' | translate }}</h2>
 <mat-dialog-content>
-  <p>Are you sure you want to delete {{ deleteCount }} set(s)?</p>
-  <p *ngIf="includesPublic.length>0">This includes the following public sets that may be being used by others:</p>
+  <p translate>{{ 'Translate.ConfirmDelCount' | translate: { delNum: deleteCount } }}</p>
+  <p *ngIf="includesPublic.length>0" translate>{{ 'Translate.ConfirmPublic' | translate }}</p>
   <ul *ngIf="includesPublic.length>0"> 
     <li *ngFor="let set of includesPublic">
       {{ set.name }}
@@ -9,6 +9,6 @@
   </ul>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-flat-button color="secondary" mat-dialog-close>Cancel</button>
-  <button mat-flat-button color="secondary" [mat-dialog-close]="true" cdkFocusInitial>Yes, delete sets</button>
+  <button mat-flat-button color="secondary" mat-dialog-close>{{ 'Translate.ConfirmCancel' | translate }}</button>
+  <button mat-flat-button color="secondary" [mat-dialog-close]="true" cdkFocusInitial>{{ 'Translate.ConfirmYes' | translate }}</button>
 </mat-dialog-actions>
