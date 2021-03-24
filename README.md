@@ -20,6 +20,8 @@ If you have a large number of sets, use the **Content Type** filter and the **Re
 
 ![FilterMySets](https://user-images.githubusercontent.com/41173288/112232624-9f3bcc00-8c84-11eb-94a4-87d02a761077.png)
 
+The app will advise you of any Public sets selected as a precaution against deleting sets that may be in use by others. 
+
 <h2>Troubleshooting</h2>
 
 If you are on the **Manage Sets** page and no sets are displaying, check whether you need to remove or change any filters applied and that you are on the **My Sets** tab.
