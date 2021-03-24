@@ -12,7 +12,7 @@
    ],
    "subtitle": "Enables a user to bulk delete their sets",
    "author": "Team 3",
-   "description": "This app enhances the existing Manage Sets admin page in Alma, allowing users to bulk delete Sets they have created. For more information see https://github.com/geocode64/delete-sets/blob/main/README.md",
+   "description": "This app enhances the existing Manage Sets admin page in Alma, allowing users to bulk delete Sets they have created.",
    "icon": {
       "type": "font",
       "value": "fa fa-trash-o"
