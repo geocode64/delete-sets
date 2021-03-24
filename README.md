@@ -12,7 +12,7 @@ This Cloud App was developed as part of the ANZREG Cloud Apps Hackathon 2021. It
 
 <h2>How It Works</h2>
 
-Select multiple sets from the **Admin** > **Manage Sets** > **My Sets** page within Alma for simultaneous removal (you may only delete sets that were created by the Alma account you are logged in with).
+Select multiple sets from the **Admin** > **Manage Sets** > **My Sets** page within Alma for simultaneous removal (you may only delete sets that were created by the Alma account you are logged in with). While the app can be used on the **Public Sets** and **All Sets** tabs, the app will only display and allow the deletion of sets created by the logged in user account.
 
 ![MySets](https://user-images.githubusercontent.com/80810015/112097689-6b589c00-8bdb-11eb-9ec5-27edbfcee20b.png)
 
