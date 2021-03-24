@@ -1,6 +1,15 @@
 {
    "id": "delete-sets",
-   "title": "Delete Your Sets",
+   "title": [
+      {
+         "lang": "en",
+         "text": "Delete Your Sets"
+      },
+      {
+         "lang": "cn",
+         "text": "删除合集"
+      }
+   ],
    "subtitle": "Enables a user to bulk delete their sets",
    "author": "Team 3",
    "description": "This app enhances the existing Manage Sets admin page in Alma, allowing users to bulk delete Sets they have created. For more information on these tutorials, see https://github.com/geocode64/delete-sets/blob/main/README.md",

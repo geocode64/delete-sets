@@ -1,9 +1,14 @@
 {
-  "Translate": {
-    "Button": "Delete",
-    "Title": "Delete Your Sets",
-    "Select": "Select the sets you want to delete from the list below.",
-    "DeleteSuc": "Set deletion succesful!",
-    "ConfirmTitle": "Delete Sets"
-  }
+	"Translate": {
+		"Button": "Delete",
+		"ConfirmTitle": "Delete Sets",
+		"DeleteSuc": "Set deletion succesful!",
+		"NoSets": "This app enhances the existing Manage Sets admin page in Alma, allowing you to bulk delete Sets you have created. Navigate to <b>Admin > Manage Sets > My Sets</b> to use this app.",
+		"NumSets": "<i>A total of <strong>{{ num }}</strong> items have been selected.</i>",
+		"Select": "Select the sets you want to delete from the list below.",
+		"ConfirmDelCount": "Are you sure you want to delete {{ delNum }} set(s)?",
+		"ConfirmPublic": "This includes the following public sets that may be being used by others:",
+		"ConfirmCancel": "Cancel",
+		"ConfirmYes": "Yes, delete sets"
+	}
 }
