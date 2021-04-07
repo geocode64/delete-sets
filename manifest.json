@@ -13,6 +13,7 @@
    "subtitle": "Enables a user to bulk delete their sets",
    "author": "Team 3",
    "description": "This app enhances the existing Manage Sets admin page in Alma, allowing users to bulk delete Sets they have created.",
+   "entities": [ "SET" ],
    "icon": {
       "type": "url",
       "value": "/assets/delete-sets-logo-inverted.png"
