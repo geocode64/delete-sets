@@ -1,3 +1,5 @@
+Note: this app is no longer being maintained - please reach out if you want to take over.
+
 <h1>DELETE YOUR SETS</h1>
 
 *Tidy up your list of Alma sets quickly with this bulk deletion tool.*
