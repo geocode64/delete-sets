@@ -1,4 +1,4 @@
-Note: this app is no longer being maintained - please reach out if you want to take over.
+Note: this app is no longer being maintained so there may be security vulnerabilities. Please reach out if you want to take over.
 
 <h1>DELETE YOUR SETS</h1>
 
